@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/default2.css" />
+    <link rel="stylesheet" href="/css/healthfood3.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      /*main*/
+      #default > .main {
+        background-color: #ffdcc2;
+        height: 100%;
+        margin: 66px auto 0;
+        white-space: nowrap;
+        width: 100% !important;
+        min-width: 1800px;
+        flex-grow: 1;
+      }
+    </style>
+    <script>
+      function loginCheck() {
+
+        var fm = document.adminJoin;
+
+        const email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,}$/i;
+
+        if (fm.uEmail.value == "") {
+          alert("이메일을 입력해주세요");
+          fm.uEmail.focus();
+          return;
+        }else if (email.test(fm.uEmail.value) == false) {
+          alert("이메일 형식이 올바르지 않습니다.");
+          fm.uEmail.value = "";
+          fm.uEmail.focus();
+          return;
+        } else if (fm.uPwd.value == "") {
+          alert("비밀번호를 입력해주세요");
+          fm.uPwd.focus();
+          return;
+        } else if (fm.uAdminPwd.value == "") {
+          alert("회사 비밀번호를 입력해주세요");
+          fm.uAdminPwd.focus();
+          return;
+        }
+        fm.submit();
+      }
+
+    </script>
+  </head>
+  <body id="default">
+  <!---로그인 하기 전 메인, 로그인 회원가입에 쓸 틀---->
+  <div th:replace="common/header :: header"></div>
+
+    <!-- <div class="side-bar">
+      <div class="status-icon">
+        <div>▶</div>
+        <div>▼</div>
+      </div>
+      <nav class="menu-box-1">
+        <ul>
+          <li>
+            <a><img src="./img/sideButton1.png" /></a>
+          </li>
+          <li>
+            <a><img src="./img/sideButton2.png" /></a>
+          </li>
+          <li>
+            <a><img src="./img/sideButton3.png" /></a>
+          </li>
+          <li>
+            <a><img src="./img/sideButton4.png" /></a>
+          </li>
+          <li>
+            <a><img src="./img/sideButton5.png" /></a>
+          </li>
+        </ul>
+      </nav>
+    </div> -->
+
+    <!--여기부터 개발 시작--->
+    <div class="main login">
+      <div class="top flex">
+        <div class="right h-full w-full flex justify-center items-center flex-grow">
+          <div class="content margin-auto rounded-3xl p-14">
+            <h1 class="title font-bold pb-2 text-center text-3xl">
+              관리자 로그인
+            </h1>
+            <form class="my-5" name="adminJoin"  th:action="@{/adm/admin/doLogin}" method="POST" onsubmit="loginCheck(this); return false;">
+              <div class="mb-3">
+                <div>이메일</div>
+                <input
+                  type="text" id="uEmail" name="uEmail"
+                  class="w-full bg-transparent placeholder:text-black text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none shadow-sm focus:shadow bcolor-FA9058"
+                />
+              </div>
+              <div class="mb-3">
+                <div>비밀번호</div>
+                <input
+                  type="password" name="uPwd"
+                  class="w-full bg-transparent placeholder:text-black text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none shadow-sm focus:shadow bcolor-FA9058"
+                />
+              </div>
+              <div class="">
+                <div>회사 비밀번호</div>
+                <input
+                  type="password" name="uAdminPwd"
+                  class="w-full bg-transparent placeholder:text-black text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none shadow-sm focus:shadow bcolor-FA9058"
+                />
+              </div>
+            </form>
+            <button
+              class="my-6 bgcolor-FA9058 w-full rounded-md py-4 px-4 border border-transparent text-center text-lg text-white transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button" onclick="loginCheck();"
+            >
+              로그인
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"></div>
+  </body>
+</html>

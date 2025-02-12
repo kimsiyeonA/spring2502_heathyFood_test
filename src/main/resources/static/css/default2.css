@@ -1,0 +1,176 @@
+body {
+    display: flex;
+    flex-direction: column;
+    overflow-x: auto;
+}
+
+/* 해더 */
+#default > header > div {
+    background-color: #fff;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-width: 1200px;
+    border-bottom: 2px solid #fa9058;
+    z-index: 999;
+}
+
+#default > header > div > .header-in {
+    width: 100%;
+    max-width: 1420px;
+    margin: 0 auto;
+    transform: translateX(0);
+}
+
+#default > header > div > .menumain {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1600px;
+    align-items: center;
+}
+
+#default > header > div > .menumain > .logo > img {
+    width: 150px;
+    max-width: none;
+    height: 54px;
+}
+
+#default > header > div > .menumain > .space {
+    flex-grow: 1;
+}
+
+#default > header > div > .menumain > .menu {
+    flex-grow: 2;
+    text-align: center;
+}
+
+#default > header > div > .menumain > .menu > ul > li {
+    display: inline-block;
+}
+
+#default > header > div > .menumain > .menu > ul > li > a {
+    display: inline-block;
+    padding: 20px 30px;
+    font-weight: bold;
+    width: 150px;
+}
+
+#default > header > div > .menumain > .menu > ul > .last > a {
+    background-color: #ffdcc2;
+    font-weight: bold;
+    width: 150px;
+    padding: 0 0 0 30px;
+    border-radius: 5rem;
+}
+
+#default > header > div > .menumain > .menu > ul > .last > a > img {
+    display: inline;
+    width: 45px;
+    height: 45px;
+    margin: 0 0 0 10px;
+    border-radius: 50%;
+    border: 3px solid #fbb56f;
+}
+
+#default > header > div > .menumain > .menu > ul > li:hover:not(.last) > a {
+    background-color: #ffdcc2;
+    padding: 10px 30px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+/*사이드바 시작*/
+#default > .side-bar {
+    background-color: #fbb56f;
+    margin-top: 66px;
+    width: 120px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: -95px;
+    transition: left 0.3s;
+    z-index: 999;
+}
+
+#default > .side-bar:hover {
+    left: 0;
+}
+
+/* 사이드바 - 아이콘 */
+#default > .side-bar > div > .status-icon > div {
+    text-align: right;
+    padding: 8px;
+}
+
+#default > .side-bar > div >.status-icon > div:last-child {
+    display: none;
+}
+
+#default > .side-bar:hover > div >.status-icon > div:last-child {
+    display: block;
+}
+
+#default > .side-bar:hover > div >.status-icon > div:first-child {
+    display: none;
+}
+
+/* 사이드바 - 메뉴 */
+#default > .side-bar > div >.menu-box-1 ul > li > a {
+    display: block;
+    font-weight: bold;
+    padding: 10px;
+}
+
+#default > .side-bar > div >.menu-box-1 ul > li > a > img {
+    width: 60px;
+    height: 60px;
+}
+
+#default > .side-bar >div > .menu-box-1 ul > li:hover > a {
+    background-color: #fa9058;
+    border-radius: 1rem;
+}
+
+#default > .side-bar > div >.menu-box-1 ul > li {
+    display: block;
+    font-weight: bold;
+    padding: 15px 10px;
+}
+
+#default > .side-bar > div >.menu-box-1 ul {
+    margin: auto 0;
+}
+
+/*main*/
+#default > .main {
+    background-color: #ffffff;
+    min-height: 100vh;
+    /* padding-top: 80px; 헤더 높이 확보 */
+    padding-bottom: 80px; /* 푸터 높이 확보 */
+    white-space: nowrap;
+    width: 1200px;
+    flex-grow: 1;
+    z-index: 1; /* 헤더보다 아래 */
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #ffdcc2;
+    height: 100%;
+    margin: 66px auto;
+    white-space: nowrap;
+    flex-grow: 1;
+
+}
+
+#default > .footer {
+    height: 64px;
+    border-top: 1px solid #afafaf;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 998;
+}

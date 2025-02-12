@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>myMealLogFoodDetail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/default2.css" />
+    <link rel="stylesheet" href="/css/healthfood3.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
+        });
+        calendar.render();
+      });
+    </script>
+  </head>
+  <!---로그인 했을 때 + 사이드바---->
+  <body id="default" >
+  <div th:replace="common/header :: header"></div>
+  <div th:replace="common/sideBar :: sideBar"></div>
+
+    <!--여기부터 개발 시작--->
+    <div class="main meal-log-main px-20 py-3">
+      <div class="content pb-5">
+        <div class="top border5-color-FA9058 p-3">
+          <div
+            class="color-FA9058 bgcolor-radius5rem-FFDCC2 mb-3 text-center text-2xl font-bold py-2"
+          >
+            현재 상태
+          </div>
+          <div class="bottom flex align-center justify-around text-base">
+            <div class="text-center">
+              <div class="mb-2">키</div>
+              <div class="info">175CM</div>
+            </div>
+            <div class="text-center">
+              <div class="mb-2">체중</div>
+              <div class="info">80KG</div>
+            </div>
+            <div class="text-center">
+              <div class="mb-2">체지방량</div>
+              <div class="info">25KG</div>
+            </div>
+            <div class="text-center">
+              <div class="mb-2">의심질환</div>
+              <div class="info">고혈압</div>
+            </div>
+            <div class="text-center">
+              <div class="mb-2">현재 상태</div>
+              <div class="info">잘하고 있어요</div>
+            </div>
+          </div>
+        </div>
+        <div class="middle my-4 flex">
+          <div id="calendar" class="calendar border5-color-FA9058 mr-2"></div>
+          <div class="graph ml-2 border5-color-FA9058 p-3">
+            <div class="flex justify-around ">
+              <div class="inline-block text-center">
+                <div class="circle carb">
+                  <div class="inner-circle">
+                    <span class="status danger">위험</span>
+                    <span class="current">371G</span>
+                    <span class="total">371G</span>
+                  </div>
+                </div>
+                <div class="name carb">탄수화물</div>
+              </div>
+              <div class="inline-block text-center">
+                <div class="circle protein">
+                  <div class="inner-circle">
+                    <span class="status success">양호</span>
+                    <span class="current">16.3G</span>
+                    <span class="total">68G</span>
+                  </div>
+                </div>
+                <div class="name protein">단백질</div>
+              </div>
+              <div class="inline-block text-center">
+                <div class="circle fat" style="background: conic-gradient(#F8F370 80%, white 0deg);">
+                  <div class="inner-circle">
+                    <span class="status warning">주의</span>
+                    <span class="current">20.8G</span>
+                    <span class="total">57G</span>
+                  </div>
+                </div>
+                <div class="name fat">지방</div>
+              </div>
+            </div>
+            <div class="flex justify-around mt-5">
+              <div class="inline-block text-center">
+                <div class="circle sugar">
+                  <div class="inner-circle">
+                    <span class="status warning">주의</span>
+                    <span class="current">50G</span>
+                    <span class="total">20G</span>
+                  </div>
+                </div>
+                <div class="name sugar">당류</div>
+              </div>
+              <div style="display: inline-block; text-align: center">
+                <div class="circle sodium">
+                  <div class="inner-circle">
+                    <span class="status warning">주의</span>
+                    <span class="current">1500MG</span>
+                    <span class="total">2000MG</span>
+                  </div>
+                </div>
+                <div class="name sodium">나트륨</div>
+              </div>
+              <div class="inline-block text-center">
+                <div class="circle calorie">
+                  <div class="inner-circle">
+                    <span class="status warning">주의</span>
+                    <span class="current">600Cal</span>
+                    <span class="total">1820Cal</span>
+                  </div>
+                </div>
+                <div class="name calorie">총열량</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bottom border5-color-FA9058 p-3">
+          <div
+            class="color-FA9058 bgcolor-radius5rem-FFDCC2 mb-3 text-center text-2xl font-bold py-2"
+          >
+            식사 기록
+          </div>
+          <div class="bottom flex align-center justify-around text-base">
+            <form  class="text-center" th:action="@{/myMealLog/goRecord}" method="POST">
+              <input type="hidden" name="ftMealTime" th:value="'아침'" />
+              <input type="hidden" name="ftWriteDate" />
+              <button class="button-160px-FA9058 mb-2" >
+                <div class="-mt-2">+</div>
+              </button>
+              <div class="info">아침</div>
+            </form >
+            <form  class="text-center" th:action="@{/myMealLog/goRecord}" method="POST" >
+              <input type="hidden" name="ftMealTime" th:value="'점심'" />
+              <input type="hidden" name="ftWriteDate" />
+              <button class="button-160px-FA9058 mb-2">
+                <div class="-mt-2">+</div>
+              </button>
+              <div>점심</div>
+            </form >
+            <form  class="text-center" th:action="@{/myMealLog/goRecord}" method="POST">
+              <input type="hidden" name="ftMealTime" th:value="'저녁'" />
+              <input type="hidden" name="ftWriteDate" />
+              <button class="button-160px-FA9058 mb-2">
+                <div class="-mt-2">+</div>
+              </button>
+              <div>저녁</div>
+            </form >
+            <form  class="text-center" th:action="@{/myMealLog/goRecord}" method="POST">
+              <input type="hidden" name="ftMealTime" th:value="'간식'" />
+              <input type="hidden" name="ftWriteDate" />
+              <button class="button-160px-FA9058 mb-2">
+                <div class="-mt-2">+</div>
+              </button>
+              <div>간식</div>
+            </form >
+            <form  class="text-center" th:action="@{/myMealLog/goRecord}" method="POST">
+              <input type="hidden" name="ftMealTime" th:value="'야식'" />
+              <input type="hidden" name="ftWriteDate" />
+              <button class="button-160px-FA9058 mb-2">
+                <div class="-mt-2">+</div>
+              </button>
+              <div>야식</div>
+            </form >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"></div>
+  </body>
+  <script>
+    // 버튼 클릭 시 현재 날짜를 설정
+    document.querySelector('button').addEventListener('click', function() {
+      const currentDate = new Date().toISOString().split('T')[0];  // yyyy-MM-dd 형식
+      document.querySelector('input[name="ftWriteDate"]').value = currentDate;
+    });
+  </script>
+  <script>
+    window.addEventListener("scroll", () => {
+      const bwLeft = window.scrollX;
+      document.querySelector(
+        ".header-in"
+      ).style.transform = `translateX(-${bwLeft}px)`;
+    });
+  </script>
+</html>

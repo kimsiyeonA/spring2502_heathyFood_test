@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/default2.css" />
+    <link rel="stylesheet" href="/css/healthfood3.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+      /*main*/
+      #default > .main {
+        background-color: #ffdcc2;
+        height: 100%;
+        margin: 66px auto 0;
+        white-space: nowrap;
+        width: 100% !important;
+        min-width: 1800px;
+        flex-grow: 1;
+      }
+    </style>
+    <script>
+      function loginCheck() {
+
+        var fm = document.userLogin;
+
+        const email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,}$/i;
+
+        if (fm.uEmail.value == "") {
+          alert("이메일을 입력해주세요");
+          fm.uEmail.focus();
+          return;
+        }else if (email.test(fm.uEmail.value) == false) {
+          alert("이메일 형식이 올바르지 않습니다.");
+          fm.uEmail.value = "";
+          fm.uEmail.focus();
+          return;
+        } else if (fm.uPwd.value == "") {
+          alert("비밀번호를 입력해주세요");
+          fm.uPwd.focus();
+          return;
+        }
+          fm.submit();
+      }
+
+    </script>
+  </head>
+  <!---로그인 하기 전 메인, 로그인 회원가입에 쓸 틀oncontextmenu="return false"---->
+  <body id="default" >
+  <div th:replace="common/header :: header"></div>
+
+
+
+  <!-- <div class="side-bar">
+    <div class="status-icon">
+      <div>▶</div>
+      <div>▼</div>
+    </div>
+    <nav class="menu-box-1">
+      <ul>
+        <li>
+          <a><img src="./img/sideButton1.png" /></a>
+        </li>
+        <li>
+          <a><img src="./img/sideButton2.png" /></a>
+        </li>
+        <li>
+          <a><img src="./img/sideButton3.png" /></a>
+        </li>
+        <li>
+          <a><img src="./img/sideButton4.png" /></a>
+        </li>
+        <li>
+          <a><img src="./img/sideButton5.png" /></a>
+        </li>
+      </ul>
+    </nav>
+  </div> -->
+
+    <!--여기부터 개발 시작--->
+    <div class="main login">
+      <div class="top flex">
+        <div class="left h-full flex justify-around items-stretch">
+          <div class="title">
+            식단으로 <br />
+            여러분의 <br />
+            건강한 몸을 <br />찾아보세요
+          </div>
+          <img src="/img/mainImg1.png" />
+        </div>
+        <div class="right h-full flex justify-center items-center">
+          <div class="content rounded-3xl p-14">
+            <h1 class="title font-bold pb-2 text-center text-3xl">
+              로그인 해주세요
+            </h1>
+            <form class="my-5"  name="userLogin"  th:action="@{/usr/user/doLogin}" method="POST" onsubmit="loginCheck(this); return false;">
+              <div class="mb-3">
+                <div>이메일</div>
+                <input
+                  type="text"  id="uEmail" name="uEmail"
+                  class="w-full bg-transparent placeholder:text-black text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none shadow-sm focus:shadow bcolor-FA9058"
+                />
+              </div>
+              <div class="">
+                <div>비밀번호</div>
+                <input
+                  type="password" name="uPwd"
+                  class="w-full bg-transparent placeholder:text-black text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none shadow-sm focus:shadow bcolor-FA9058"
+                />
+              </div>
+            </form>
+            <div class="found-link text-end text-2l">
+              <a th:href="@{/usr/user/foundEmail}">이메일 찾기</a>/<a th:href="@{/usr/user/foundPassword}">비밀번호 찾기</a>
+            </div>
+            <button
+              class="my-6 bgcolor-FA9058 w-full rounded-md py-4 px-4 border border-transparent text-center text-lg text-white transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button" onclick="loginCheck();"
+            >
+              로그인
+            </button>
+            <div class="relative mb-7">
+              <hr class="hrcolor-FA9058" />
+              <div class="color-FA9058 font-bold text-center login-line-text">
+                OR
+              </div>
+            </div>
+            <div class="easy-login-img flex justify-around items-center my-6">
+              <a href="#"><img src="/img/kakaoimg.png" alt="" /></a>
+              <a href="#"
+                ><img src="/img/googleimg.png" alt=""
+              /></a>
+              <a href="#"><img src="/img/appleimg.png" alt="" /></a>
+            </div>
+            <div class="color-FA9058 text-center font-bold text-2xl mt-4">
+              <a th:href="@{/usr/user/join}">회원가입 하러가기</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom flex">
+        <div class="left flex items-center justify-center">
+          <div class="cardnews-main">
+            <div class="title py-2">침묵의 살인자 저항성 고혈압</div>
+            <img src="/img/cardnewsSample.png" />
+          </div>
+        </div>
+        <div class="right flex items-center justify-evenly">
+          <div class="suggest">
+            <div class="title py-2">이 달의 추천 레시피</div>
+            <img class="my-2" src="/img/suggestrecipe.png" />
+            <div class="content py-2">오곡밥</div>
+          </div>
+          <div class="suggest">
+            <div class="title py-2">이 달의 추천 첼린지</div>
+            <img class="my-2" src="/img/suggestchallenge.png" />
+            <div class="content py-2">하루 1리터 마시기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"></div>
+    <script th:if="${error}" th:inline="javascript">
+      alert("[[${error}]]");
+    </script>
+    <script th:if="${message}" th:inline="javascript">
+      alert("[[${message}]]");
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,240 @@
+/*라이브러리*/
+/*메인 색-테두리*/
+.bcolor-FA9058,
+.bcolor-FA9058:active,
+.bcolor-FA9058:focus,
+.bcolor-FA9058:hover { border-color: #fa9058; } 
+.border3-color-FA9058 { border: 3px solid #fa9058; } 
+.border5-color-FA9058 { border: 5px solid #fa9058; } 
+/*메인 색-배경*/
+.bgcolor-FA9058,
+.bgcolor-FA9058:active,
+.bgcolor-FA9058:focus,
+.bgcolor-FA9058:hover { background-color: #fa9058; } 
+/*메인 색-글자*/
+.color-FA9058 { color: #fa9058; } 
+/*메인 색-즐*/
+.hrcolor-FA9058 { background-color: #fa9058; height: 2px; border: 0; } 
+.hrcolor5-FA9058 { background-color: #fa9058; height: 5px; border: 0; } 
+/*메인 색-버튼*/
+.revbutton-FA9058 { border: 2px solid #fa9058; background-color: #fff; color: #fa9058; } 
+.revbutton-FA9058:hover { border: 2px solid #fa9058; background-color: #fff; color: #fa9058; } 
+.revbutton5-FA9058 { border: 5px solid #fa9058; background-color: #fff; color: #fa9058; } 
+.revbutton5-FA9058:hover { border: 5px solid #fa9058; background-color: #fff; color: #fa9058; } 
+.button-FA9058 { width: 25%; height: 60px; padding: 0; background-color: #fa9058; color: #ffffff; border: 1px solid #fa9058; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; } 
+/* .button-FA9058 :hover { background-color: #ffffff; color: #3681AB; } */
+.button-160px-FA9058 { width: 150px; height: 40px; padding: 0; background-color: #fa9058; color: #ffffff; border: 1px solid #fa9058; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; font-size: 30px; vertical-align: top; border-radius: 5rem; } 
+
+/*서브 색-배경*/
+.bgcolor-radius-FFDCC2 { background-color: #ffdcc2; border-radius: 20px; } /*search 사용*/
+.bgcolor-radius5rem-FFDCC2 { background-color: #ffdcc2; border-radius: 5rem; } 
+/*서브 색-글자*/
+.color-FFDCC2 { color: #ffdcc2; } 
+
+.flex-grow2 { flex-grow: 2; } 
+
+#default > .main.user,
+#default > .main.introduce,
+#default > .main.login,
+#default > .main.meal-log,
+#default > .main.food-dictionary,
+#default > .main.food-detail,
+#default > .main.meal-log-main { background-color: white !important; } 
+
+/***********************************/
+/*커스텀*/
+/*user*/
+.user > .top > .left { background-color: #fbb56f; width: 60%; border-radius: 0 96px 96px 0; overflow: hidden; } 
+.user > .top > .left > .text-right > img { width: 600px; height: 400px; object-fit: contain; } 
+.user > .top > .left > .text-left > img { width: 720px; height: 300px; object-fit: contain; } 
+.user > .top > .right > .content { border: none; width: 600px; height: 650px; border-radius: 96px; } 
+.user > .top { /* background-color: red; 임시*/
+ height: 900px; } 
+.user > .top > .right > .content input[type="radio"],
+.user > .top > .right > .content input[type="checkbox"] { appearance: none; /* 기본 스타일 제거 */
+ -webkit-appearance: none; /* 웹킷 브라우저용 */
+ width: 50px; height: 50px; border: 5px solid #fa9058; /* 외부 테두리 */
+ border-radius: 50%; /* 원형 버튼 */
+ position: relative; cursor: pointer; /* 클릭 가능한 포인터 */
+ outline: none; } 
+.user > .top > .right > .content input[type="radio"]:checked,
+.user > .top > .right > .content input[type="checkbox"]:checked { border-color: #fa9058; /* 선택된 상태의 외부 테두리 */ } 
+.user > .top > .right > .content input[type="radio"]:checked::after,
+.user > .top > .right > .content input[type="checkbox"]:checked::after { content: ""; /* 내부 원 추가 */
+ display: block; width: 30px; height: 30px; background-color: #fa9058; /* 내부 원 색상 */
+ border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); /* 가운데 정렬 */ } 
+.user > .top > .right.line > .content { border: 3px solid #fa9058; width: 600px; height: 650px; border-radius: 96px; } 
+/********************************/
+
+.login,
+.join { background-color: white; height: 100%; margin: 66px auto 0; white-space: nowrap; width: 100% !important; min-width: 1800px; flex-grow: 1; } 
+.login > .top { /* background-color: red; 임시*/
+ height: 700px; } 
+.login > .top > .left { background-color: #fbb56f; width: 60%; border-radius: 0 96px 96px 0; padding: 30px; overflow: hidden; } 
+.login > .top > .left > .title { color: white; font-size: 3rem; font-weight: bold; } 
+.login > .top > .left > img { display: block; width: 600px; height: 600px; min-height: 1px; } 
+.login > .top > .right { /* background-color: rgba(85, 214, 173, 0.851); */
+ width: 40%; } 
+.login > .top > .right > .content { border: 3px solid #fa9058; width: 600px; height: 650px; border-radius: 96px; } 
+.login > .top > .right > .content > .title { font-size: 30px; /* background-color: rgba(13, 81, 59, 0.851); */ } 
+.login > .top > .right > .content > .found-link { color: #fa9058; font-weight: bold; } 
+.login > .top > .right > .content > .relative > .login-line-text { background-color: white; display: inline-block; position: absolute; left: 46%; top: -13px; } 
+.login > .top > .right > .content > .easy-login-img > a > img { border: 6px solid #fa9058; border-radius: 50%; width: 64px; height: 64px; } 
+.login > .bottom { /* background-color: pink; */
+ height: 500px; } 
+.login > .bottom > .left { /* background-color: red; */
+ width: 30%; height: 100%; } 
+.login > .bottom > .left > .cardnews-main { background-color: #fa9058; border: 5px solid #fa9058; } 
+.login > .bottom > .left > .cardnews-main > .title { color: white; font-weight: bold; text-align: center; font-size: 25px; } 
+.login > .bottom > .left > .cardnews-main > img { width: 396px; height: 354px; } 
+.login > .bottom > .right { background-color: #ffdcc2; border-radius: 96px 0 0 96px; width: 70%; height: 100%; } 
+.login > .bottom > .right > .suggest { padding: 10px; background-color: #fff; border: 5px solid #fa9058; } 
+.login > .bottom > .right > .suggest > .title { background-color: #ffdcc2; font-weight: bold; text-align: center; font-size: 25px; } 
+.login > .bottom > .right > .suggest > img { width: 360px; height: 221px; } 
+.login > .bottom > .right > .suggest > .content { background-color: #ffdcc2; font-weight: bold; text-align: center; font-size: 25px; } 
+/********************************/
+.join > .top > .left { height: 1100px; } 
+
+/********************************/
+.search > .top > .right > .fence > .content { border: 3px solid #fa9058; width: 600px; height: 650px; border-radius: 96px; } 
+
+/********************************/
+/********************************/
+/*introduce*/
+.introduce > .bottom > div > img { width: 200px; height: 200px; } 
+
+/********************************/
+/********************************/
+/*myMealLog*/
+/*2공통 틀 - meal-log, food-dictionary*/
+
+.meal-log > .content > .mealSearch input,
+.food-dictionary > .content > .mealSearch input { width: 80%; height: 60px; /* 버튼 높이와 동일하게 설정 */
+ padding: 10px 30px; font-size: 16px; border: 5px solid #fa9058; box-sizing: border-box; } 
+
+.meal-log > .content > .mealTable,
+.food-dictionary > .content > .foodListTable .food-dictionary > .content > .foodListTable { max-height: 600px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 컨텐츠가 많아질 경우 스크롤 추가 */
+} 
+
+.meal-log > .content > .mealTable > table,
+.food-dictionary > .content > .foodListTable > table { width: 100%; border-collapse: collapse; text-align: center; } 
+
+.meal-log > .content > .mealTable > table > thead > tr > th,
+.food-dictionary > .content > .foodListTable > table > thead > tr > th { font-size: 18px; border-top: 5px solid #ffdcc2; border-bottom: 5px solid #ffdcc2; padding: 9px 0; } 
+.meal-log > .content > .mealTable > table > tbody > tr > td,
+.food-dictionary > .content > .foodListTable > table > tbody > tr > td { font-size: 16px; border-top: 5px solid #ffdcc2; border-bottom: 5px solid #ffdcc2; padding: 9px 0; } 
+.meal-log > .content > .mealTable > table > tbody > tr > .onPadding,
+.food-dictionary > .content > .foodListTable > table > tbody > tr > .onPadding { padding: 0px; text-align: right; } 
+.meal-log > .content > .mealTable > table > tbody > tr > td .tableCircle,
+.food-dictionary
+ > .content
+ > .foodListTable
+ > table
+ > tbody
+ > tr
+ > td
+ .tableCircle { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: #fa9058; } 
+.meal-log > .content > .mealTable > table > tbody > tr > .onPadding > Button,
+.food-dictionary
+ > .content
+ > .foodListTable
+ > table
+ > tbody
+ > tr
+ > .onPadding
+ > Button { width: 100%; height: 50px; background-color: #fa9058; color: #ffffff; border-radius: 5px; border: 1px solid #fa9058; font-size: 16px; margin: auto; padding: 10px 12px; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease; } 
+/* #foodTrackerMealLog .inner .frameMain .mealTable Button:hover,
+#foodTrackerList .inner .frameMain .foodListTable Button:hover { background-color: #ffffff; color: #3681AB; } */
+/********************************/
+.meal-log > .content .totalKcal { display: inline-block; background-color: #ffdcc2; padding: 10px 20px; border-radius: 96px; font-weight: 700; font-size: 16px; } 
+
+
+/********************************/
+.food-detail > .content > .foodQuantityInfo,
+.food-detail > .content > .foodNutritionPercent { border: 5px solid #fa9058; } 
+
+.food-detail > .content > .foodQuantityInfo select { width: 250px; padding: 8px; border: 3px solid #fa9058; border-radius: 4px; background-color: #ffffff; color: #fa9058; text-align: center; } 
+.food-detail > .content > .foodQuantityInfo select option:checked { background-color: #fa9058; color: #fff; } 
+.food-detail > .content > .foodQuantityInfo select option:hover { background-color: #f0f0f0; } 
+.food-detail > .content > .foodQuantityInfo .num { width: 250px; padding: 8px; border: 3px solid #fa9058; border-radius: 4px; background-color: #ffffff; color: #fa9058; text-align: center; } 
+
+/*그래프 바*/
+.food-detail > .content > .foodNutritionPercent .graph-container { --percent: 30%; /* 여기서 퍼센트 값을 변경할 수 있습니다 */
+ width: 100px; height: 16px; background-color: #ccc; overflow: hidden; flex-grow: 1; } 
+.food-detail > .content > .foodNutritionPercent .carbGraphBar { width: 100%; height: 100%; background: linear-gradient(
+ to right,
+ #ff8480 var(--percent),
+ transparent var(--percent)
+ ); } 
+.food-detail > .content > .foodNutritionPercent .proteinGraphBar { width: 100%; height: 100%; background: linear-gradient(
+ to right,
+ #ffc285 var(--percent),
+ transparent var(--percent)
+ ); } 
+.food-detail > .content > .foodNutritionPercent .fatGraphBar { width: 100%; height: 100%; background: linear-gradient(
+ to right,
+ #f8f370 var(--percent),
+ transparent var(--percent)
+ ); } 
+.food-detail > .content > .foodNutritionPercent .sugarGraphBar { width: 100%; height: 100%; background: linear-gradient(
+ to right,
+ #b2ff88 var(--percent),
+ transparent var(--percent)
+ ); } 
+.food-detail > .content > .foodNutritionPercent .sodiumGraphBar { width: 100%; height: 100%; background: linear-gradient(
+ to right,
+ #79b8ff var(--percent),
+ transparent var(--percent)
+ ); } 
+.food-detail > .content > .foodNutritionPercent .name { width: 100px; font-size: 16px; font-weight: 600; line-height: 1; } 
+.food-detail > .content > .foodNutritionPercent .percent { width: 130px; font-size: 16px; line-height: 1; } 
+
+.food-detail > .content > .foodNutritionPercent .carbCircle { display: inline-block; width: 16px; height: 16px; background: #ff8480; border-radius: 50%; margin-right: 10px; line-height: 1; } 
+.food-detail > .content > .foodNutritionPercent .proteinCircle { display: inline-block; width: 16px; height: 16px; background: #ffc285; border-radius: 50%; margin-right: 10px; } 
+.food-detail > .content > .foodNutritionPercent .fatCircle { display: inline-block; width: 16px; height: 16px; background: #f8f370; border-radius: 50%; margin-right: 10px; } 
+.food-detail > .content > .foodNutritionPercent .sugarCircle { display: inline-block; width: 16px; height: 16px; background: #b2ff88; border-radius: 50%; margin-right: 10px; } 
+.food-detail > .content > .foodNutritionPercent .sodiumCircle { display: inline-block; width: 16px; height: 16px; background: #79b8ff; border-radius: 50%; margin-right: 10px; } 
+
+/********************************/
+.meal-log-main > .content > .top > .bottom .info { width: 185px; height: 40px; background: #ffdcc2; border-radius: 5rem; line-height: 40px; } 
+.meal-log-main > .content > .middle > .calendar { width: 500px; height: 450px; box-sizing: border-box; padding: 10px; }
+.meal-log-main > .content > .middle > .graph { width: 690px; height: 450px; box-sizing: border-box; padding: 10px; }
+
+
+.meal-log-main > .content > .middle > .graph .circle { font-size: 10px; width: 140px; height: 140px; display: flex; border-radius: 50%;  border: 1px solid #353b48; position: relative; /* background: conic-gradient(yellowgreen 277deg, white 0deg); */
+background: conic-gradient(yellowgreen 20%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .inner-circle { width: 90%; height: 90%; border-radius: inherit; border: 1px solid #353b48; background-color: white; /*background-color: #353b48; */
+margin: auto; display: flex; color: #353b48; /*color: white; */ justify-content: center; flex-direction: column; align-items: center; } 
+.meal-log-main > .content > .middle > .graph .circle.carb { background: conic-gradient(#ff8480 20%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .circle.protein { background: conic-gradient(#FFC285 20%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .circle.fat { background: conic-gradient(#F8F370 20%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .circle.sugar { background: conic-gradient(#B2FF88 20%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .circle.sodium { background: conic-gradient(#79B8FF 20%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .circle.calorie { background: conic-gradient(#B581FF 80%, white 0deg); } 
+.meal-log-main > .content > .middle > .graph .inner-circle span { display: flex; align-items: center; } 
+.meal-log-main > .content > .middle > .graph .inner-circle > .status { color: white; font-size: 16px; padding: 5px 20px; border-radius: 96px; font-weight: 600; } 
+.meal-log-main > .content > .middle > .graph .inner-circle > .status.danger { background-color: #ff3535; } 
+.meal-log-main > .content > .middle > .graph .inner-circle > .status.success { background-color: #67bf3e; } 
+.meal-log-main > .content > .middle > .graph .inner-circle > .status.warning { background-color: #fdb35f; } 
+.meal-log-main > .content > .middle > .graph .inner-circle > .current { font-size: 30px; font-weight: 700; } 
+.meal-log-main > .content > .middle > .graph .inner-circle > .total { font-size: 16px; font-weight: 700; color: #636569; } 
+/* .inner-circle span:last-child { background-color: aquamarine; padding: 10px 30px; border-radius: 96px; margin-top: 10px; } */
+.meal-log-main > .content > .middle > .graph .name { background-color: aquamarine; padding: 5px 30px; font-size: 24px; font-weight: bold; border-radius: 10px; margin: 8px 0; width: 150px; } 
+.meal-log-main > .content > .middle > .graph .name.carb { background-color: #ff8480; } 
+.meal-log-main > .content > .middle > .graph .name.protein { background-color: #FFC285; } 
+.meal-log-main > .content > .middle > .graph .name.fat { background-color: #F8F370; } 
+.meal-log-main > .content > .middle > .graph .name.sugar { background-color: #B2FF88; } 
+.meal-log-main > .content > .middle > .graph .name.sodium { background-color: #79B8FF; } 
+.meal-log-main > .content > .middle > .graph .name.calorie { background-color: #B581FF; } 
+
+
+
+
+
+
+
+
+
+
+

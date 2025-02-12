@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>myMealLogFoodDictionary</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      as="style"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/default2.css" />
+    <link rel="stylesheet" href="/css/healthfood3.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+
+    <style>
+      #default > .main {
+        background-color: #ffdcc2;
+        height: 100%;
+        margin: 66px auto 0;
+        white-space: nowrap;
+        flex-grow: 1;
+      }
+    </style>
+    <script>
+
+    </script>
+  </head>
+  <!---로그인 했을 때 + 사이드바---->
+  <body id="default">
+  <div th:replace="common/header :: header"></div>
+  <div th:replace="common/sideBar :: sideBar"></div>
+
+    <!--여기부터 개발 시작--->
+    <div class="main food-dictionary px-20 py-3">
+      <div class="content pb-5">
+        <div class="py-3">
+          <div class="flex justify-between text-2xl">
+            <div class="flex-grow text-center">음식 영양소 사전</div>
+            <div>뒤로▶</div>
+          </div>
+          <hr class="mt-3 hrcolor5-FA9058" />
+        </div>
+        <div class="mealSearch flex align-center my-2">
+          <input type="text" placeholder="먹은 음식을 입력하세요" />
+          <button class="button-FA9058 text-base font-medium">검색</button>
+        </div>
+        <div class="foodListTable pt-3">
+          <table>
+            <colgroup>
+              <col style="width: 5%; height: 65px" />
+              <!-- 첫 번째 열: "*" -->
+              <col style="width: 25%; height: 65px" />
+              <!-- 두 번째 열: 음식 이름 -->
+              <col style="width: 15%; height: 65px" />
+              <!-- 세 번째 열: 수량 -->
+              <col style="width: 15%; height: 65px" />
+              <!-- 네 번째 열: 분량 -->
+              <col style="width: 15%; height: 65px" />
+              <!-- 다섯 번째 열: 칼로리 -->
+              <col style="width: 5%; height: 65px" />
+              <!-- 여섯 번째 열: 버튼 -->
+            </colgroup>
+            <thead>
+              <tr>
+                <th></th>
+                <th>먹은음식</th>
+                <th>수량</th>
+                <th>분량</th>
+                <th>칼로리</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="food-table">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="text-center">
+          <button class="revbutton5-FA9058 w-full py-3 text-base font-bold" id="load-more">
+            더보기
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"></div>
+  </body>
+  <script th:inline="javascript">
+    let foodDBInfo = /*[[${foodDBInfo}]]*/ '';
+    let jsonData = /*[[${jsonData}]]*/ ''; // Thymeleaf에서 받은 JSON 문자열
+    let parsedData = JSON.parse(jsonData); // JSON 객체로 변환
+    let numOfRows = 0; // 기본 페이지 번호
+
+    console.log("foodDBInfo:", foodDBInfo);
+    console.log("foodDBInfo.FOOD_NM_KR:", foodDBInfo.food_NM_KR);
+    console.log(parsedData); // 디버깅용 로그 출력
+
+    function loadFoodData() {
+      let foodTable = document.getElementById("food-table");
+
+      if (parsedData.body && parsedData.body.items) {
+        parsedData.body.items.forEach(item => {
+          let row = document.createElement('tr');
+
+          row.innerHTML = `
+                        <td class="text-center align-middle">
+                            <div class="tableCircle"></div>
+                        </td>
+                        <td>${item.FOOD_NM_KR}</td>
+                        <td>1</td>
+                         <td>${item.SERVING_SIZE || "100g"}</td>
+                        <td>${parseInt(item.AMT_NUM1)} kcal</td>
+                        <td class="onPadding"><button>선택</button></td>
+                    `;
+          numOfRows = parsedData.body.numOfRows;
+
+          foodTable.appendChild(row);
+        });
+      } else {
+        alert("데이터가 없습니다.");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+      loadFoodData();
+    });
+
+
+    // 더보기 버튼 클릭 시 AJAX 요청
+    $("#load-more").click(function () {
+      $.ajax({
+        url: "/myMealLog/loadMoreFoodDictionary",
+        type: "POST",
+        contentType: "application/json", // JSON 형식으로 전송
+        data: JSON.stringify({
+          foodDBInfo: {
+            food_NM_KR: foodDBInfo.food_NM_KR, // 검색어
+            pageNo: foodDBInfo.pageNo // 현재 페이지 번호
+          },
+          numOfRows: numOfRows // 현재 행 개수
+        }),
+        success: function (response) {
+          // 서버에서 받은 JSON 데이터를 파싱
+          let newJsonData = JSON.parse(response);
+
+          let foodTable = document.getElementById("food-table");
+
+          foodTable.innerHTML = "";
+
+          if (newJsonData.body && newJsonData.body.items) {
+            newJsonData.body.items.forEach(item => {
+              let row = document.createElement("tr");
+
+              row.innerHTML = `
+            <td class="text-center align-middle">
+              <div class="tableCircle"></div>
+            </td>
+            <td>${item.FOOD_NM_KR}</td>
+            <td>1</td>
+            <td>${item.SERVING_SIZE || "100g"}</td>
+            <td>${parseInt(item.AMT_NUM1)} kcal</td>
+            <td class="onPadding"><button>선택</button></td>
+          `;
+
+              numOfRows = newJsonData.body.numOfRows;
+
+              foodTable.appendChild(row);
+            });
+          } else {
+            alert("더 이상 데이터가 없습니다.");
+            $("#load-more").hide(); // 더보기 버튼 숨김
+          }
+        },
+        error: function () {
+          alert("데이터를 불러오는 중 오류가 발생했습니다.");
+        }
+      });
+    });
+
+  </script>
+
+  <script>
+    window.addEventListener("scroll", () => {
+      const bwLeft = window.scrollX;
+      document.querySelector(
+        ".header-in"
+      ).style.transform = `translateX(-${bwLeft}px)`;
+    });
+  </script>
+</html>

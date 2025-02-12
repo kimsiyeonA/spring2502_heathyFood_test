@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>searchPassword</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link
+            rel="stylesheet"
+            as="style"
+            crossorigin
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/default.css"/>
+    <link rel="stylesheet" href="/css/default2.css"/>
+    <link rel="stylesheet" href="/css/healthfood3.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        #default > .main {
+            background-color: #ffdcc2;
+            height: 100%;
+            margin: 66px auto 0;
+            white-space: nowrap;
+            width: 100% !important;
+            min-width: 1800px;
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<!---로그인 하기 전 메인, 로그인 회원가입에 쓸 틀---->
+<body id="default" oncontextmenu="return false">
+<div th:replace="common/header :: header"></div>
+
+<!-- <div class="side-bar">
+  <div class="status-icon">
+    <div>▶</div>
+    <div>▼</div>
+  </div>
+  <nav class="menu-box-1">
+    <ul>
+      <li>
+        <a><img src="./img/sideButton1.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton2.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton3.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton4.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton5.png" /></a>
+      </li>
+    </ul>
+  </nav>
+</div> -->
+
+<!--여기부터 개발 시작--->
+<div class="main user search">
+    <div class="top flex">
+        <div class="left p-20">
+            <div class="text-right"><img class="inline-block" src="/img/mainImg1.png"></div>
+            <div class="text-left"><img class="inline-block" src="/img/mainImg2.png"></div>
+        </div>
+        <div class="right line flex justify-center items-center flex-grow " >
+            <input type="hidden" th:value="${user}"/>
+            <div class="fence my-14 " >
+                <div class="title font-bold pb-2 text-center text-3xl">이메일 찾기 결과</div>
+                <div class="content rounded-3xl p-20 my-4 ">
+                    <div class="mb-5 text-center text-3xl color-FA9058"><p class="inline-block" th:text="${user.uName}">아무개</p>님의 이메일 찾기가 <br>
+                        완료되었습니다.
+                    </div>
+                    <hr class="mb-5 hrcolor-FA9058">
+                    <div class="p-3 pt-10 border3-color-FA9058 ">
+                        <div class="flex text-xl mb-3">
+                            <div class="pl-10" >이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름:</div>
+                            <div class="flex-grow text-center" th:text="${user.uName}">아무개</div>
+                        </div>
+                        <div class="flex text-xl mb-5">
+                            <div class="pl-10">전화번호:</div>
+                            <div class="flex-grow text-center" th:text="${user.uPhone}" >010-1234-1234</div>
+                        </div>
+                        <hr class="hrcolor-FA9058 mb-3">
+                        <div class="flex text-xl mb-3 bgcolor-radius-FFDCC2 py-10">
+                            <div class="text-center flex-grow font-bold text-lg">
+                                <div>
+                                    <p class="inline-block" th:text="${user.uEmail}">test1@gmail.com</p>
+                                    <span>(</span>
+                                    <p class="inline-block" th:text="${#strings.substring(user.uEnterDate, 0, 10)}">2024-12-14</p>
+                                    <span>(가입))</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="mt-2 mb-3 revbutton-FA9058 w-1/2 rounded-md py-4 px-4 text-center text-lg font-bold transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
+                                type="button" onclick="location.href='/usr/user/login'">로그인
+                        </button>
+                        <button class="mt-2 mb-3 revbutton-FA9058 w-1/2 rounded-md py-4 px-4 text-center text-lg font-bold transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
+                                type="button" onclick="location.href='/usr/user/foundPassword'">비밀번호 찾기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer"></div>
+</body>
+</html>

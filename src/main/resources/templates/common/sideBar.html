@@ -1,0 +1,50 @@
+
+<div class="side-bar" th:fragment="sideBar">
+    <link rel="stylesheet" th:href="@{/css/default.css}" />
+    <link rel="stylesheet" th:href="@{/css/default2.css}" />
+    <link rel="stylesheet" th:href="@{/css/healthfood3.css}" />
+
+
+    <div th:if="${session.user != null}">
+        <!-- 로그인 상태일 때 헤더 (모양 A) -->
+        <div class="status-icon">
+            <div>▶</div>
+            <div>▼</div>
+        </div>
+        <nav class="menu-box-1">
+            <ul class="text-base text-center text-white break-words">
+                <li>
+                    <a>
+                        <img th:src="@{/img/sideButton1.png}" class="m-auto"/>
+                        <div>MY<br>식사일지</div>
+                    </a>
+
+                </li>
+                <li>
+                    <a>
+                        <img th:src="@{/img/sideButton2.png}" class="m-auto" />
+                        <div>MY<br>냉장고</div>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <img th:src="@{/img/sideButton3.png}" class="m-auto" />
+                        <div>MY<br>챌린지</div>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <img th:src="@{/img/sideButton4.png}" class="m-auto" />
+                        <div>MY<br>활동정보</div>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <img th:src="@{/img/sideButton5.png}" class="m-auto" />
+                        <div>이용문의</div>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

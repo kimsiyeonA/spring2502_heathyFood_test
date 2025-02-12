@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>join</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link
+            rel="stylesheet"
+            as="style"
+            crossorigin
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-gov.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&family=Roboto:wght@400;700;900&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/default.css"/>
+    <link rel="stylesheet" href="/css/default2.css"/>
+    <link rel="stylesheet" href="/css/healthfood3.css"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        /*main*/
+        #default > .main {
+            background-color: #ffdcc2;
+            height: 100%;
+            margin: 66px auto 0;
+            white-space: nowrap;
+            width: 100% !important;
+            min-width: 1800px;
+            flex-grow: 1;
+        }
+
+        .user > .top {
+            /* background-color: red; 임시*/
+            height: 1050px;
+
+        }
+    </style>
+    <script>
+        function joinCheck() {
+
+            var fm = document.userJoin;
+
+            const email = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,}$/i;
+            const phone = /^(01[016789]|02|0[3-9]\d{1})(\d{3,4})(\d{4})$/;
+
+            if (fm.uEmail.value == "") {
+                alert("이메일을 입력해주세요");
+                fm.uEmail.focus();
+                return;
+            }else if (email.test(fm.uEmail.value) == false) {
+                alert("이메일 형식이 올바르지 않습니다.");
+                fm.uEmail.value = "";
+                fm.uEmail.focus();
+                return;
+            }/* else if(fm.btn.value == "N"){
+                alert("아이디중복체크를 해주세요");
+                fm.memberid.focus(); // 팝업창이 키고 깜빡거리게
+                return;
+            }*/ else if (fm.uPwd.value == "") {
+                alert("비밀번호를 입력해주세요");
+                fm.uPwd.focus();
+                return;
+            } else if (fm.uPwd2.value == "") {
+                alert("비밀번호 확인을 입력해주세요");
+                fm.uPwd2.focus();
+                return;
+            } else if (fm.uPwd.value != fm.uPwd2.value) {
+                alert("비밀번호가 일치하지 않습니다.");
+                fm.uPwd2.value = "";
+                fm.uPwd2.focus();
+                return;
+            } else if (fm.uName.value == "") {
+                alert("이름을 입력해주세요");
+                fm.uName.focus();
+                return;
+            } else if (fm.uPhone.value == "") {
+                alert("연락처를 입력해주세요");
+                fm.uPhone.focus();
+                return;
+            } else if (phone.test(fm.uPhone.value) == false) {
+                alert("연락처 형식이 올바르지 않습니다.");
+                fm.uPhone.value = "";
+                fm.uPhone.focus();
+                return;
+            } else if (fm.uBirth.value == "") {
+                alert("생년월일을 입력해주세요");
+                fm.uBirth.focus();
+                return;
+            }  else if (fm.uNickName.value == "") {
+                alert("닉네임을 입력해주세요");
+                fm.uNickName.focus();
+                return;
+            } else if (fm.uGender.value == "") {
+                alert("성별을 선택해주세요");
+                return;
+            } else if (!document.getElementById("uTOSAgree").checked) {
+                alert("이용 약관 동의해주세요");
+                return;
+            } else if (!document.getElementById("uPIPAgree").checked) {
+                alert("개인 정보 수집·이용 동의해주세요.");
+                return;
+            }
+
+            var ans = confirm("저장하시겠습니까?")
+
+            if (ans == true) {
+                fm.submit();
+            }
+            return;
+        }
+
+        $(document).ready(function () {
+            $("#idCheckBtn").click(function () {
+                let uId = $("#uId").val();
+                if (uId == "") {
+                    alert("아이디를 입력해주세요")
+                    return;
+                }
+                $.ajax({ // HTML과 JSON을 연결한다.
+                    type: "post",
+                    url: "<%=request.getContextPath()%>/user/idcheck.do",
+                    dataType: "json",
+                    data: {"memberId": memberId},
+                    success: function (result) {
+                        if (result.cnt == 0) {
+                            alert("사용할 수 있는 아이디 입니다.");
+                            $("#btn").val("Y");
+                        } else {
+                            alert("사용할 수 없는 아이디 입니다.");
+                            $("#memberid").val("");
+                        }
+                    },
+                    error: function (result) {
+                        alert("전송 실패 테스트")
+                    }
+                });
+
+            });
+        });
+
+    </script>
+</head>
+<!---로그인 하기 전 메인, 로그인 회원가입에 쓸 틀---->
+<body id="default" oncontextmenu="return false">
+<div th:replace="common/header :: header"></div>
+
+<!-- <div class="side-bar">
+  <div class="status-icon">
+    <div>▶</div>
+    <div>▼</div>
+  </div>
+  <nav class="menu-box-1">
+    <ul>
+      <li>
+        <a><img src="./img/sideButton1.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton2.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton3.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton4.png" /></a>
+      </li>
+      <li>
+        <a><img src="./img/sideButton5.png" /></a>
+      </li>
+    </ul>
+  </nav>
+</div> -->
+
+<!--여기부터 개발 시작--->
+<div class="main user ">
+    <div class="top flex  ">
+        <div class="left  p-20">
+            <div class="text-right"><img class="inline-block" src="/img/mainImg1.png"></div>
+            <div class="text-left"><img class="inline-block" src="/img/mainImg2.png"></div>
+        </div>
+        <div class="right flex justify-center  flex-grow ">
+            <div class="content rounded-3xl p-14">
+                <h1 class="title font-bold pb-2 text-center text-3xl">회원가입</h1>
+                <form class="my-5" name="userJoin"  th:action="@{/usr/user/doJoin}" method="POST" onsubmit="joinCheck(this); return false;">
+                    <div class="mb-3">
+                        <div>이메일 <span class="ml-2"  id="emailValidationMessage"></span></div>
+                        <input type="text" id="uEmail" name="uEmail"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>비밀번호</div>
+                        <input type="password" name="uPwd"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none  shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>비밀번호 확인</div>
+                        <input type="password" name="uPwd2"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none  shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>이름</div>
+                        <input type="text" name="uName"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none  shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>생년월일</div>
+                        <input type="date" name="uBirth"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none  shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>연락처<span class="ml-2" id="phoneValidationMessage"></span></div>
+
+                        <input type="text" id="uPhone" name="uPhone"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none  shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>닉네임</div>
+                        <input type="text" id="uNickName" name="uNickName"
+                               class=" w-full bg-transparent placeholder:text-black  text-black text-sm border-4 border-gray-300 rounded-md px-3 py-3 transition duration-300 ease focus:outline-none  shadow-sm focus:shadow bcolor-FA9058">
+                    </div>
+                    <div class="mb-3">
+                        <div>성별</div>
+                        <div class="flex">
+                            <div class="flex items-center "><input type="radio" name="uGender" value="M"
+                                                                   style="transform: scale(0.5);"/>
+                                <div>남성</div>
+                            </div>
+                            <div class="flex items-center "><input type="radio" name="uGender" value="F"
+                                                                   style="transform: scale(0.5);"/>
+                                <div>여성</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div> 이용동의</div>
+                        <div class="">
+                            <div class="flex items-center "><input type="checkbox" id="uTOSAgree"
+                                                                   name="uTOSAgree" value="Y"
+                                                                   style="transform: scale(0.5);">
+                                <label for="uTOSAgree">이용 약관 동의 ></label></div>
+                        </div>
+                        <div class="">
+                            <div class="flex items-center "><input type="checkbox" id="uPIPAgree" name=uPIPAgree
+                                                                   value="Y" style="transform: scale(0.5);">
+                                <label for="uPIPAgree">개인 정보 수집·이용 동의 ></label></div>
+                        </div>
+                    </div>
+                </form>
+                <div>
+                    <button class="mt-3 mb-2 bgcolor-FA9058 w-full rounded-md py-4 px-4 border border-transparent text-center text-lg text-white transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
+                            type="button" name="userInfoSaveBtn" onclick="joinCheck();">회원가입
+                    </button>
+                </div>
+                <div>
+                    <button class="mt-2 mb-3 revbutton-FA9058 w-full rounded-md py-4 px-4 text-center text-lg font-bold transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none "
+                            type="button"
+                            onclick="location.href='/usr/user/userLogin'">
+                        로그인
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer"></div>
+</body>
+<script type="text/javascript">
+    // uphone으로 전화를 입력받으면 유효한지 알려주는 태크
+    const phoneInput = document.getElementById('uPhone');
+    const validationPhoneMessage = document.getElementById('phoneValidationMessage');
+
+    function validatePhoneNumber(phone) {
+        const phoneRegex = /^(01[016789]|02|0[3-9]\d{1})(\d{3,4})(\d{4})$/;
+        return phoneRegex.test(phone);
+    }
+
+    phoneInput.addEventListener('input', function () {
+        const phoneNumber = this.value;
+        if (phoneNumber.length >= 2) {
+            if (validatePhoneNumber(phoneNumber)) {
+                validationPhoneMessage.textContent = "유효한 전화번호 형식입니다.";
+                validationPhoneMessage.style.color = "green";
+            } else {
+                validationPhoneMessage.textContent = "올바른 전화번호 형식이 아닙니다.";
+                validationPhoneMessage.style.color = "red";
+            }
+        } else {
+            validationPhoneMessage.textContent = "";
+        }
+    });
+    const emailInput = document.getElementById('uEmail');
+    const validationEmailMessage = document.getElementById('emailValidationMessage');
+
+    function validateEmailNumber(email) {
+        const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,}$/i;
+        return emailRegex.test(email);
+    }
+
+    emailInput.addEventListener('input', function () {
+        const emailNumber = this.value;
+        if (emailNumber.length >= 2) {
+            if (validateEmailNumber(emailNumber)) {
+                validationEmailMessage.textContent = "유효한 이메일 형식입니다.";
+                validationEmailMessage.style.color = "green";
+            } else {
+                validationEmailMessage.textContent = "올바른 이메일 형식이 아닙니다.";
+                validationEmailMessage.style.color = "red";
+            }
+        } else {
+            validationEmailMessage.textContent = "";
+        }
+    });
+
+</script>
+</html>
