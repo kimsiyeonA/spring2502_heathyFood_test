@@ -53,10 +53,11 @@
           </div>
           <hr class="mt-3 hrcolor5-FA9058" />
         </div>
-        <div class="mealSearch flex align-center my-2">
-          <input type="text" placeholder="먹은 음식을 입력하세요" />
-          <button class="button-FA9058 text-base font-medium">검색</button>
-        </div>
+        <form id="foodSearchForm" class="mealSearch flex align-center my-2" name="goFoodDetail"  th:action="@{/myMealLog/goFoodDictionary}" method="POST">
+          <input type="hidden" th:value="${foodTrackerJson}" name="foodTrackerJson"/>
+          <input type="text" placeholder="먹은 음식을 입력하세요" name="searchFoodName"/>
+          <button class="button-FA9058 text-base font-medium" type="button" onclick="submitForm('foodSearchForm')" >검색</button>
+        </form>
         <div class="foodListTable pt-3">
           <table>
             <colgroup>
@@ -98,14 +99,22 @@
 
     <div class="footer"></div>
   </body>
+  <script>
+    function submitForm(formId) {
+      document.getElementById(formId).submit();
+    }
+  </script>
   <script th:inline="javascript">
-    let foodDBInfo = /*[[${foodDBInfo}]]*/ '';
-    let jsonData = /*[[${jsonData}]]*/ ''; // Thymeleaf에서 받은 JSON 문자열
-    let parsedData = JSON.parse(jsonData); // JSON 객체로 변환
-    let numOfRows = 0; // 기본 페이지 번호
+    let foodTrackerJson = /*[[${foodTrackerJson}]]*/ '';
+    let foodDBInfoJson = JSON.parse(/*[[${foodDBInfoJson}]]*/ '{}');
+    let foodDBResultJson = /*[[${foodDBResultJson}]]*/ ''; // 음식 검색 후 DB Search 결과
+    let parsedData = JSON.parse(foodDBResultJson); // JSON 객체로 변환
+    let numOfRowsDefult = parsedData.body.numOfRows;
+    let pageNoDefult = foodDBInfoJson.pageNo;
 
-    console.log("foodDBInfo:", foodDBInfo);
-    console.log("foodDBInfo.FOOD_NM_KR:", foodDBInfo.food_NM_KR);
+    console.log("foodTrackerJson:", foodTrackerJson);
+    console.log("foodDBInfo:", foodDBInfoJson);
+    console.log("foodDBInfo.FOOD_NM_KR:", foodDBInfoJson.food_NM_KR);
     console.log(parsedData); // 디버깅용 로그 출력
 
     function loadFoodData() {
@@ -121,11 +130,16 @@
                         </td>
                         <td>${item.FOOD_NM_KR}</td>
                         <td>1</td>
-                         <td>${item.SERVING_SIZE || "100g"}</td>
+                        <td>${item.SERVING_SIZE}</td>
                         <td>${parseInt(item.AMT_NUM1)} kcal</td>
-                        <td class="onPadding"><button>선택</button></td>
+                        <td class="onPadding">
+                          <form  id="foodDetailForm" action="/myMealLog/goFoodDetail" method="POST">
+                            <input type="hidden" name="foodDBResultJsonOneItem" value='${JSON.stringify(item)}'>
+                            <input type="hidden" name="foodTrackerJson"  value='${foodTrackerJson}'>
+                            <button  type="button" onclick="submitForm('foodDetailForm')">선택</button>
+                          </form>
+                        </td>
                     `;
-          numOfRows = parsedData.body.numOfRows;
 
           foodTable.appendChild(row);
         });
@@ -140,17 +154,15 @@
 
 
     // 더보기 버튼 클릭 시 AJAX 요청
-    $("#load-more").click(function () {
+    $("#load-more").off("click").on("click",function () {
       $.ajax({
         url: "/myMealLog/loadMoreFoodDictionary",
         type: "POST",
         contentType: "application/json", // JSON 형식으로 전송
         data: JSON.stringify({
-          foodDBInfo: {
-            food_NM_KR: foodDBInfo.food_NM_KR, // 검색어
-            pageNo: foodDBInfo.pageNo // 현재 페이지 번호
-          },
-          numOfRows: numOfRows // 현재 행 개수
+          food_NM_KR: foodDBInfoJson.food_NM_KR, // 검색어
+          pageNo: pageNoDefult, // 현재 페이지 번호
+          numOfRows: numOfRowsDefult // 현재 행 개수
         }),
         success: function (response) {
           // 서버에서 받은 JSON 데이터를 파싱
@@ -158,11 +170,12 @@
 
           let foodTable = document.getElementById("food-table");
 
-          foodTable.innerHTML = "";
 
-          if (newJsonData.body && newJsonData.body.items) {
+          if (newJsonData.body && newJsonData.body.items && newJsonData.body.items.length > 0) {
             newJsonData.body.items.forEach(item => {
               let row = document.createElement("tr");
+
+              console.log(newJsonData.body.items);
 
               row.innerHTML = `
             <td class="text-center align-middle">
@@ -170,15 +183,22 @@
             </td>
             <td>${item.FOOD_NM_KR}</td>
             <td>1</td>
-            <td>${item.SERVING_SIZE || "100g"}</td>
+            <td>${item.SERVING_SIZE}</td>
             <td>${parseInt(item.AMT_NUM1)} kcal</td>
-            <td class="onPadding"><button>선택</button></td>
+            <td class="onPadding">
+              <form  id="foodDetailForm" action="/myMealLog/goFoodDetail" method="POST">
+                <input type="hidden" name="foodDBResultJsonOneItem" value='${JSON.stringify(item)}'>
+                <input type="hidden" name="foodTrackerJson"  th:text="${JSON.stringify(foodTrackerJson)}">
+                <button  type="button" onclick="submitForm('foodDetailForm')">선택</button>
+              </form>
+            </td>
           `;
-
-              numOfRows = newJsonData.body.numOfRows;
 
               foodTable.appendChild(row);
             });
+            pageNoDefult++;
+            numOfRowsDefult = newJsonData.body.numOfRows;
+
           } else {
             alert("더 이상 데이터가 없습니다.");
             $("#load-more").hide(); // 더보기 버튼 숨김

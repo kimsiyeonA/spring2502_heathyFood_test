@@ -1,5 +1,6 @@
 package com.ksy.exam.spring2502_heathyfood_test.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ksy.exam.spring2502_heathyfood_test.repository.UserRepository;
 import com.ksy.exam.spring2502_heathyfood_test.util.Ut;
 import com.ksy.exam.spring2502_heathyfood_test.vo.FoodDBInfo;
@@ -32,7 +33,8 @@ public class FoodDBInfoService {
     @Value("${public.api.key}")  // application.yml에서 값 가져오기
     private String apiKey;
 
-    public String goFoodDictionary(FoodDBInfo foodDBInfo) throws IOException {
+    public String makeFoodDBResultByJson(FoodDBInfo foodDBInfo) throws IOException {
+        System.out.println(foodDBInfo.getType());
         StringBuilder urlBuilder = new StringBuilder("https://apis.data.go.kr/1471000/FoodNtrCpntDbInfo01/getFoodNtrCpntDbInq01");
         urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") + "=" + apiKey);
         urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(foodDBInfo.getPageNo()), "UTF-8"));
@@ -63,5 +65,14 @@ public class FoodDBInfoService {
         conn.disconnect();
 
         return sb.toString();
+    }
+
+    public String makeFoodDBInfoByJson(FoodDBInfo foodDBInfo)  throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        // 객체를 JSON 문자열로 변환
+        String jsonString = objectMapper.writeValueAsString(foodDBInfo);
+
+        System.out.println(jsonString);
+        return jsonString;
     }
 }
